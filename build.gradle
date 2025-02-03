@@ -1,0 +1,81 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'org.hidetake.ssh' version '2.10.1'
+    id "org.owasp.dependencycheck" version "10.0.4"
+}
+
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'lib-compile'
+    }
+}
+
+dependencies {
+    //connected system
+//    compileOnly 'com.appian:connected-systems-core:1.2.0'
+//    implementation 'com.appian:connected-systems-client:1.1.0'
+//    testImplementation 'com.appian:connected-systems-core:1.2.0'
+
+    //appian dependencies
+    compileOnly fileTree(dir: 'dependencies/lib-compile', include: '*.jar')
+    implementation fileTree(dir: 'dependencies/lib', include: '*.jar')
+
+    //commons
+    implementation 'org.apache.commons:commons-lang3:3.17.0'
+    implementation 'org.apache.commons:commons-text:1.12.0'
+    //log 4j
+    implementation 'org.apache.logging.log4j:log4j-core:2.24.1'
+    implementation 'org.apache.logging.log4j:log4j-api:2.24.1'
+
+    implementation 'com.opencsv:opencsv:5.10'
+}
+
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    into('META-INF/lib') {
+        from(configurations.runtimeClasspath)
+    }
+
+    into('jar_root/src') {
+        from(sourceSets.main.allJava)
+    }
+
+    manifest {
+        attributes("Spring-Context": "*;publish-context:=false")
+    }
+}
+
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+
+version = new groovy.xml.XmlSlurper().parse(file('src/main/resources/appian-plugin.xml')).'plugin-info'.version
+
+
+apply plugin: 'org.hidetake.ssh'
+remotes {
+    appian {
+        host = '10.0.0.26'
+        user = 'appian'
+        password = 'appian'
+
+//        identity = file("${System.properties['user.home']}/.ssh/id_rsa")
+    }
+}
+
+task deployToVm {
+    group = 'install'
+    dependsOn jar
+
+    doLast {
+        ssh.run {
+            session(remotes.appian) {
+                put from: "$projectDir/build/libs/${rootProject.name}-${version}.jar", into: '/opt/appian/23.2/_admin/plugins/'
+            }
+        }
+    }
+}

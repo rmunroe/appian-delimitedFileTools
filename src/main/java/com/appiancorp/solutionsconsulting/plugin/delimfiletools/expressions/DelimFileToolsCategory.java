@@ -1,10 +1,10 @@
-package com.appiancorp.solutionsconsulting.plugins.delimfiletools.expressions;
+package com.appiancorp.solutionsconsulting.plugin.delimfiletools.expressions;
 
 import com.appiancorp.suiteapi.expression.annotations.Category;
 
 import java.lang.annotation.*;
 
-@Category("delimFileToolsCategory")
+@Category("DelimFileToolsCategory")
 @Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

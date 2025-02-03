@@ -1,10 +1,11 @@
-package com.appiancorp.solutionsconsulting.plugins.delimfiletools.expressions;
+package com.appiancorp.solutionsconsulting.plugin.delimfiletools.expressions;
 
 import com.appiancorp.ps.plugins.typetransformer.AppianObject;
 import com.appiancorp.ps.plugins.typetransformer.AppianTypeFactory;
-import com.appiancorp.solutionsconsulting.plugins.delimfiletools.helpers.ParseHelper;
+import com.appiancorp.solutionsconsulting.plugin.delimfiletools.helpers.ParseHelper;
 import com.appiancorp.suiteapi.content.ContentService;
 import com.appiancorp.suiteapi.content.exceptions.InvalidContentException;
+import com.appiancorp.suiteapi.expression.annotations.AppianScriptingFunctionsCategory;
 import com.appiancorp.suiteapi.expression.annotations.Function;
 import com.appiancorp.suiteapi.expression.annotations.Parameter;
 import com.appiancorp.suiteapi.knowledge.DocumentDataType;
@@ -15,7 +16,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
 
-@DelimFileToolsCategory
+//@DelimFileToolsCategory
+@AppianScriptingFunctionsCategory
 public class ReadLinesFromTextFile {
     private static final Logger LOG = (Logger) LogManager.getLogger(ReadLinesFromTextFile.class);
 

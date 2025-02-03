@@ -1,7 +1,7 @@
-package com.appiancorp.solutionsconsulting.plugins.delimfiletools.helpers;
+package com.appiancorp.solutionsconsulting.plugin.delimfiletools.helpers;
 
-import com.appiancorp.solutionsconsulting.plugins.delimfiletools.exceptions.InvalidCdtException;
-import com.appiancorp.solutionsconsulting.plugins.delimfiletools.exceptions.InvalidDictionaryException;
+import com.appiancorp.solutionsconsulting.plugin.delimfiletools.exceptions.InvalidCdtException;
+import com.appiancorp.solutionsconsulting.plugin.delimfiletools.exceptions.InvalidDictionaryException;
 import com.appiancorp.suiteapi.type.Datatype;
 import com.appiancorp.suiteapi.type.DatatypeProperties;
 import com.appiancorp.suiteapi.type.TypeService;

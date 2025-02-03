@@ -1,6 +1,6 @@
-package com.appiancorp.solutionsconsulting.plugins.delimfiletools.helpers;
+package com.appiancorp.solutionsconsulting.plugin.delimfiletools.helpers;
 
-import com.appiancorp.solutionsconsulting.plugins.delimfiletools.exceptions.InvalidCdtException;
+import com.appiancorp.solutionsconsulting.plugin.delimfiletools.exceptions.InvalidCdtException;
 import com.appiancorp.suiteapi.common.exceptions.PrivilegeException;
 import com.appiancorp.suiteapi.common.exceptions.StorageLimitException;
 import com.appiancorp.suiteapi.content.ContentConstants;

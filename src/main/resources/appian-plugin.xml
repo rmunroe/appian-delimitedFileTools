@@ -1,12 +1,11 @@
-<appian-plugin name="Delimited File Tools" key="com.appiancorp.solutionsconsulting.delimfiletools">
+<appian-plugin name="Delimited File Tools" key="com.appiancorp.solutionsconsulting.plugin.delimfiletools">
 
     <plugin-info>
         <description>Tools for parsing and writing delimited text files</description>
         <vendor name="Appian Corporation" url="http://www.appian.com"/>
         <version>1.0.0</version>
-        <application-version min="6.1.0"/>
+        <application-version min="23.2"/>
     </plugin-info>
-
 
     <enumeration key="line-endings" type="3">
         <items>
@@ -23,18 +22,17 @@
         </items>
     </enumeration>
 
+    <function-category key="DelimFileToolsCategory" name="Delimited File Tools"/>
 
-    <function-category key="delimFileToolsCategory" name="Delimited File Tools"/>
+    <function key="parseDelimFile" class="com.appiancorp.solutionsconsulting.plugin.delimfiletools.expressions.ParseDelimFile"/>
+    <function key="parseRfc4180File" class="com.appiancorp.solutionsconsulting.plugin.delimfiletools.expressions.ParseRfc4180File"/>
 
-    <function key="parseDelimFile" class="com.appiancorp.solutionsconsulting.plugins.delimfiletools.expressions.ParseDelimFile"/>
-    <function key="parseRfc4180File" class="com.appiancorp.solutionsconsulting.plugins.delimfiletools.expressions.ParseRfc4180File"/>
+    <function key="countLinesInTextFile" class="com.appiancorp.solutionsconsulting.plugin.delimfiletools.expressions.CountLinesInTextFile"/>
+    <function key="readLinesFromTextFile" class="com.appiancorp.solutionsconsulting.plugin.delimfiletools.expressions.ReadLinesFromTextFile"/>
 
-    <function key="countLinesInTextFile" class="com.appiancorp.solutionsconsulting.plugins.delimfiletools.expressions.CountLinesInTextFile"/>
-    <function key="readLinesFromTextFile" class="com.appiancorp.solutionsconsulting.plugins.delimfiletools.expressions.ReadLinesFromTextFile"/>
-
-    <function key="objectsToDelimitedText" class="com.appiancorp.solutionsconsulting.plugins.delimfiletools.expressions.ObjectsToDelimitedText"/>
+    <function key="objectsToDelimitedText" class="com.appiancorp.solutionsconsulting.plugin.delimfiletools.expressions.ObjectsToDelimitedText"/>
 
     <smart-service name="Write Delimited File" key="WriteDelimitedFile"
-                   class="com.appiancorp.solutionsconsulting.plugins.delimfiletools.smartservices.WriteDelimitedFile"/>
+                   class="com.appiancorp.solutionsconsulting.plugin.delimfiletools.smartservices.WriteDelimitedFile"/>
 
 </appian-plugin>

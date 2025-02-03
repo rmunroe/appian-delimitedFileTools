@@ -1,6 +1,6 @@
-package com.appiancorp.solutionsconsulting.plugins.delimfiletools.expressions;
+package com.appiancorp.solutionsconsulting.plugin.delimfiletools.expressions;
 
-import com.appiancorp.solutionsconsulting.plugins.delimfiletools.helpers.ParseHelper;
+import com.appiancorp.solutionsconsulting.plugin.delimfiletools.helpers.ParseHelper;
 import com.appiancorp.suiteapi.content.ContentService;
 import com.appiancorp.suiteapi.content.exceptions.InvalidContentException;
 import com.appiancorp.suiteapi.expression.annotations.Function;

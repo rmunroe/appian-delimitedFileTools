@@ -1,6 +1,6 @@
-package com.appiancorp.solutionsconsulting.plugins.delimfiletools.smartservices;
+package com.appiancorp.solutionsconsulting.plugin.delimfiletools.smartservices;
 
-import com.appiancorp.solutionsconsulting.plugins.delimfiletools.helpers.WriteHelper;
+import com.appiancorp.solutionsconsulting.plugin.delimfiletools.helpers.WriteHelper;
 import com.appiancorp.suiteapi.common.Name;
 import com.appiancorp.suiteapi.common.exceptions.PrivilegeException;
 import com.appiancorp.suiteapi.common.exceptions.StorageLimitException;

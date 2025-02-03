@@ -1,10 +1,10 @@
-package com.appiancorp.solutionsconsulting.plugins.delimfiletools.expressions;
+package com.appiancorp.solutionsconsulting.plugin.delimfiletools.expressions;
 
 
 import com.appiancorp.ps.plugins.typetransformer.AppianObject;
 import com.appiancorp.ps.plugins.typetransformer.AppianTypeFactory;
-import com.appiancorp.solutionsconsulting.plugins.delimfiletools.helpers.TypeHelper;
-import com.appiancorp.solutionsconsulting.plugins.delimfiletools.helpers.WriteHelper;
+import com.appiancorp.solutionsconsulting.plugin.delimfiletools.helpers.TypeHelper;
+import com.appiancorp.solutionsconsulting.plugin.delimfiletools.helpers.WriteHelper;
 import com.appiancorp.suiteapi.common.exceptions.PrivilegeException;
 import com.appiancorp.suiteapi.common.exceptions.StorageLimitException;
 import com.appiancorp.suiteapi.content.exceptions.DuplicateUuidException;

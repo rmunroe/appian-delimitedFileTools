@@ -1,4 +1,4 @@
-package com.appiancorp.solutionsconsulting.plugins.delimfiletools.helpers;
+package com.appiancorp.solutionsconsulting.plugin.delimfiletools.helpers;
 
 import com.appiancorp.ps.plugins.typetransformer.AppianList;
 import com.appiancorp.ps.plugins.typetransformer.AppianObject;

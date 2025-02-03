@@ -1,4 +1,4 @@
-package com.appiancorp.solutionsconsulting.plugins.delimfiletools.exceptions;
+package com.appiancorp.solutionsconsulting.plugin.delimfiletools.exceptions;
 
 public class InvalidFieldException extends Exception {
 

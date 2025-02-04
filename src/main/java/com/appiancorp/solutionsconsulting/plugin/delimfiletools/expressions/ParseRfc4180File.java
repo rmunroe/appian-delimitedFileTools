@@ -82,8 +82,8 @@ public class ParseRfc4180File {
      * @return A Dictionary if there was an error (null means validation passes)
      */
     private String validateParameters(ContentService contentService, Long delimitedFile, PagingInfo pagingInfo) {
-        String filePath = ParseHelper.checkFileExists(contentService, delimitedFile);
-        if (filePath != null) return filePath;
+//        String filePath = ParseHelper.checkFileExists(contentService, delimitedFile);
+//        if (filePath != null) return filePath;
 
         if (pagingInfo != null) {
             if (pagingInfo.getStartIndex() < 1)

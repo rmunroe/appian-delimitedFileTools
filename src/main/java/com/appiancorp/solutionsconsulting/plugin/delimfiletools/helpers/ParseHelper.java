@@ -12,6 +12,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.ICSVParser;
 import com.opencsv.exceptions.CsvValidationException;
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -25,6 +26,23 @@ public class ParseHelper {
     private static final Logger LOG = (Logger) LogManager.getLogger(ParseHelper.class);
 
     private final static int MAX_ROWS = 10000;
+
+    public static File getFileFromAppian(ContentService cs, Long documentId) {
+        try {
+            // Read the document content
+            try (InputStream inputStream = cs.getDocumentInputStream(documentId)) {
+                File temporaryDocument = File.createTempFile("temp", ".text");
+                temporaryDocument.deleteOnExit();
+
+                FileUtils.copyInputStreamToFile(inputStream, temporaryDocument);
+                return temporaryDocument;
+            }
+        } catch (Exception e) {
+            // Handle any exceptions
+            LOG.error("Error accessing document ", e);
+            return null;
+        }
+    }
 
     /**
      * The primary function for parsing a delimited text file from an Appian Document. Requires a valid ICVSParser instance.
@@ -41,17 +59,16 @@ public class ParseHelper {
      */
     public static TypedValue parseFile(ContentService contentService, AppianTypeFactory typeFactory, ICSVParser parser, Long delimitedFile, Boolean hasHeaderRow, Boolean includeTotalCount, PagingInfo pagingInfo)
             throws InvalidContentException {
-        String filePath = contentService.getInternalFilename(delimitedFile);
         AppianList values = typeFactory.createList(AppianType.DICTIONARY);
 
         int totalLines = -1;
         if (includeTotalCount)
-            totalLines = countLinesInFile(filePath);
+            totalLines = countLinesInFile(getFileFromAppian(contentService, delimitedFile));
 
         int maxRows = MAX_ROWS;
         try {
             // First, get the Dictionary field names
-            String[] firstLine = getReader(parser, filePath, 0).readNext();
+            String[] firstLine = getReader(parser, getFileFromAppian(contentService, delimitedFile), 0).readNext();
             String[] fieldNames;
             if (hasHeaderRow) {
                 // Use first row as headers
@@ -76,7 +93,7 @@ public class ParseHelper {
                     maxRows = pagingInfo.getBatchSize();
             }
 
-            CSVReader reader = getReader(parser, filePath, skipLines);
+            CSVReader reader = getReader(parser, getFileFromAppian(contentService, delimitedFile), skipLines);
             String[] row;
 
             // Parse!
@@ -106,15 +123,14 @@ public class ParseHelper {
 
 
     /**
-     * @param parser    A valid ICSVParser instance
-     * @param filePath  The physical path to the Appian Document
-     * @param skipLines The number of lines off the top to skip
+     * @param parser     A valid ICSVParser instance
+     * @param appianFile The File returned from ParseHelper.getFileFromAppian()
+     * @param skipLines  The number of lines off the top to skip
      * @return An open CSVReader
      * @throws FileNotFoundException Only thrown if Appian resolves a Document to a physical file, but that file does not exist (extremely rare, if ever)
      */
-    private static CSVReader getReader(ICSVParser parser, String filePath, int skipLines) throws FileNotFoundException {
-        LOG.debug("getReader for " + filePath + "; skipLines: " + skipLines);
-        return new CSVReaderBuilder(new FileReader(filePath))
+    private static CSVReader getReader(ICSVParser parser, File appianFile, int skipLines) throws FileNotFoundException {
+        return new CSVReaderBuilder(new FileReader(appianFile))
                 .withCSVParser(parser)
                 .withSkipLines(skipLines)
                 .build();
@@ -175,33 +191,33 @@ public class ParseHelper {
     }
 
 
-    /**
-     * @param contentService ContentService injected by Appian
-     * @param delimitedFile  ID of Appian Document to parse
-     * @return A String error message if the file does not exist
-     */
-    public static String checkFileExists(ContentService contentService, Long delimitedFile) {
-        try {
-            String filePath = contentService.getInternalFilename(delimitedFile);
-            File file = new File(filePath);
-            if (!file.exists())
-                return "There was a problem reading the delimitedFile passed: According to Java, the file does not exist. File Path: " + filePath;
-        } catch (InvalidContentException e) {
-            return "The delimitedFile passed was not a valid Appian Document";
-        }
-        return null;
-    }
+//    /**
+//     * @param contentService ContentService injected by Appian
+//     * @param delimitedFile  ID of Appian Document to parse
+//     * @return A String error message if the file does not exist
+//     */
+//    public static String checkFileExists(ContentService contentService, Long delimitedFile) {
+//        try {
+//            String filePath = contentService.getInternalFilename(delimitedFile);
+//            File file = new File(filePath);
+//            if (!file.exists())
+//                return "There was a problem reading the delimitedFile passed: According to Java, the file does not exist. File Path: " + filePath;
+//        } catch (InvalidContentException e) {
+//            return "The delimitedFile passed was not a valid Appian Document";
+//        }
+//        return null;
+//    }
 
 
     /**
-     * @param filePath The physical path to the file to count
+     * @param appianFile The File returned from ParseHelper.getFileFromAppian()
      * @return The number of lines in the file, or -1 if there was any error.
      */
-    public static int countLinesInFile(String filePath) {
+    public static int countLinesInFile(File appianFile) {
         int count;
         FileReader reader;
         try {
-            reader = new FileReader(new File(filePath));
+            reader = new FileReader(appianFile);
         } catch (FileNotFoundException e) {
             LOG.error("FileNotFoundException caught: " + e.getMessage());
             return -1;

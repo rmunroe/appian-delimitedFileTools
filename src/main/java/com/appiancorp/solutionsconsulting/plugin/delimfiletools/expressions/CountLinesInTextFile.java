@@ -26,14 +26,14 @@ public class CountLinesInTextFile {
             ContentService contentService,
             @Parameter @DocumentDataType Long textFile) {
 
-        String filePath;
-        try {
-            filePath = contentService.getInternalFilename(textFile);
-        } catch (InvalidContentException e) {
-            LOG.error("InvalidContentException caught: " + e.getMessage());
-            return -1;
-        }
+//        String filePath;
+//        try {
+//            filePath = contentService.getInternalFilename(textFile);
+//        } catch (InvalidContentException e) {
+//            LOG.error("InvalidContentException caught: " + e.getMessage());
+//            return -1;
+//        }
 
-        return ParseHelper.countLinesInFile(filePath);
+        return ParseHelper.countLinesInFile(ParseHelper.getFileFromAppian(contentService, textFile));
     }
 }

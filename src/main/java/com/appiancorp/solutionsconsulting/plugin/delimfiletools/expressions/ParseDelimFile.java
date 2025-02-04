@@ -109,8 +109,8 @@ public class ParseDelimFile {
      * @return A Dictionary if there was an error (null means validation passes)
      */
     private String validateParameters(ContentService contentService, Long delimitedFile, String separator, String escapeChar, String quoteChar, PagingInfo pagingInfo) {
-        String filePath = ParseHelper.checkFileExists(contentService, delimitedFile);
-        if (filePath != null) return filePath;
+//        String filePath = ParseHelper.checkFileExists(contentService, delimitedFile);
+//        if (filePath != null) return filePath;
 
         if (separator.isEmpty())
             return "You must supply a delimited separator, e.g. a comma or a tab (=char(9))";

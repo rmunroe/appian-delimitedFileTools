@@ -17,23 +17,11 @@ dependencies {
     compileOnly fileTree(dir: 'dependencies/lib-compile', include: '*.jar')
     implementation fileTree(dir: 'dependencies/lib', include: '*.jar')
 
-    //commons
-//    implementation 'org.apache.commons:commons-lang3:3.17.0'
-//    implementation 'org.apache.commons:commons-text:1.12.0'
-
-    //log 4j
+    implementation 'commons-io:commons-io:2.18.0'
     implementation 'org.apache.logging.log4j:log4j-core:2.24.1'
     implementation 'org.apache.logging.log4j:log4j-api:2.24.1'
 
     implementation 'com.opencsv:opencsv:5.10'
-}
-
-sourceSets {
-    main {
-        resources {
-            srcDirs = ['src/main/resources']
-        }
-    }
 }
 
 jar {
